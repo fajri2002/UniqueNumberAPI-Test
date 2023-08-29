@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class UniqueNumberApiController extends Controller
+class UniqueNumberController extends Controller
 {
     public function index(Request $request)
     {
-        $inputNumber = $request->input('number', 0);
+        $inputNumber = (int) $request->input('input_number', 0);
         
         $uniqueNumber = $this->findNextUniqueNumber($inputNumber);
 
@@ -17,7 +17,7 @@ class UniqueNumberApiController extends Controller
 
     private function findNextUniqueNumber($inputNumber)
     {
-        $uniqueNumber = $inputNumber + 1;
+        $uniqueNumber = $inputNumber;
 
         while (cache()->has('unique_number_' . $uniqueNumber)) {
             $uniqueNumber++;
